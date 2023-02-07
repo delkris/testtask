@@ -4,24 +4,25 @@ export interface Product {
     attributes: (Color | Size | Weight)[];
 }
 
-
-export interface Color {
+// Выделила в ProductAttr общие поля
+export interface ProductAttr {
+    id: number;
     code: string;
     name: string;
+}
+
+export interface Color extends ProductAttr {
     color: string;
 }
 
-export interface Size {
-    code: string;
-    name: string;
+export interface Size extends ProductAttr  {
     size: {
         width: number;
         height: number;
     }
 }
 
-export interface Weight {
-    code: string;
-    name: string;
+export interface Weight extends ProductAttr  {
     weight: number
 }
+

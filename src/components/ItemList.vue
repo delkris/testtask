@@ -1,5 +1,6 @@
 <template>
 	<div class="list">
+    <!--  в качестве key лучше подходит item.id и сравнивать лучше по id-->
 		<span v-for="item in items" :key="item.id" class="item" :class="{ itemSelected: item.id === selectedItem}" @click="onClick(item)">
 			{{ item.name }}
 		</span>

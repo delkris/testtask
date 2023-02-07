@@ -2,81 +2,75 @@
 	<div class="content">
 		<span class="header"> {{ item.name }}</span>
 
-		<div class="detail" v-for="attr in innerItem.attributes" :key="attr.code">
+    <!-- в input использовала v-model, ибо не работало редактирование -->
+		<div class="detail" v-for="attr in item.attributes" :key="attr.id">
 			<div class="field">
 				<span class="title">code:</span>
-				<input :value="attr.code"/>
+				<input v-model="attr.code"/>
 			</div>
 
 			<div class="field">
 				<span class="title">name:</span>
-				<input :value="attr.name"/>
+				<input v-model="attr.name"/>
 			</div>
 
 			<div v-if="attr.color" class="field">
 				<span class="title">color:</span>
-				<input :value="attr.color"/>
+				<input v-model="attr.color"/>
 			</div>
 
 			<div v-if="attr.size" class="field">
 				<span class="title">size:</span>
 				<span>
-					<input :value="attr.size.width" type="number"/> x <input :value="attr.size.height" type="number"/>
+					<input v-model="attr.size.width" type="number"/> x <input v-model="attr.size.height" type="number"/>
 				</span>
 
 			</div>
 
 			<div v-if="attr.weight" class="field">
 				<span class="title">weight:</span>
-				<input :value="attr.weight" type="number"/>
+				<input v-model="attr.weight" type="number"/>
 			</div>
-
 		</div>
 
 		<div class="add">
 			<label>
 				type
-				<select ref="selectRef">
+        <!--   предпочтительно использовать v-model вместо ref -->
+				<select v-model="selectType">
 					<option value="color">color</option>
 					<option value="size">size</option>
 					<option value="weight">weight</option>
 				</select>
 			</label>
 
-			<button @click="emit('click', selectRef.value)">
-				Add
-			</button>
+       <!-- кнопка не активна, если не выбран select-->
+      <button @click="addAttr" :disabled="selectType === ''">
+        Add
+      </button>
 		</div>
-
 	</div>
 </template>
 
 <script setup lang="ts">
-import {defineProps, defineEmits, ref, watch} from "vue";
+// удалила watch и переменную innerItem, они были лишними.
+import {defineProps, defineEmits, ref, PropType} from "vue";
+import {Product} from "@/components/types";
 
+const emit = defineEmits(['addAttr']);
 
-const props = defineProps<{
-	item: {
-		id: number;
-		name: string;
-		attributes: {
-			code: string;
-			name: string;
-		};
-	}
-}>();
-
-const emit = defineEmits(['click']);
-
-const selectRef = ref<HTMLSelectElement>();
-
-
-const innerItem = ref(props.item);
-
-
-watch(props.item, () => {
-	innerItem.value = props.item;
+defineProps({
+  item: {
+    required: true,
+    type: Object as PropType<Product>,
+  }
 })
+
+const selectType = ref("")
+
+const addAttr = () => {
+  emit('addAttr', selectType.value)
+}
 </script>
 
 <style scoped lang="css">
