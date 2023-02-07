@@ -1,32 +1,32 @@
 <template>
-	<div class="content">
-		<span class="content__header"> {{ item.name }}</span>
+  <div class="content">
+    <span class="content__header"> {{ item.name }}</span>
 
     <!-- в input использовала v-model, ибо не работало редактирование -->
-		<div class="content__detail" v-for="attr in item.attributes" :key="attr.id">
-			<label class="field">
-				<span class="field__title">code:</span>
-				<input v-model="attr.code"/>
-			</label>
+    <div class="content__detail" v-for="attr in item.attributes" :key="attr.id">
+      <label class="field">
+        <span class="field__title">code:</span>
+        <input v-model="attr.code"/>
+      </label>
 
-			<label class="field">
-				<span class="field__title">name:</span>
-				<input  v-model="attr.name"/>
-			</label>
+      <label class="field">
+        <span class="field__title">name:</span>
+        <input v-model="attr.name"/>
+      </label>
 
-			<label v-if="attr.color" class="field">
+      <label v-if="attr.color" class="field">
         <span class="field__title">color:</span>
-				<input v-model="attr.color"/>
-			</label>
+        <input v-model="attr.color"/>
+      </label>
 
       <div v-if="attr.size" class="field">
         <span class="field__title">size:</span>
         <div>
           <label>
             <span class="field__title field__title_hidden">width:</span>
-             <input v-model="attr.size.width" type="number"/>
+            <input v-model="attr.size.width" type="number"/>
           </label>
-           x
+          x
           <label>
             <span class="field__title field__title_hidden">height:</span>
             <input v-model="attr.size.height" type="number"/>
@@ -34,29 +34,29 @@
         </div>
       </div>
 
-			<label v-if="attr.weight" class="field">
-				<span class="field__title">weight:</span>
-				<input v-model="attr.weight" type="number"/>
-			</label>
-		</div>
+      <label v-if="attr.weight" class="field">
+        <span class="field__title">weight:</span>
+        <input v-model="attr.weight" type="number"/>
+      </label>
+    </div>
 
-		<div class="content__add">
-			<label>
-				type
+    <div class="content__add">
+      <label>
+        type
         <!--   предпочтительно использовать v-model вместо ref -->
-				<select v-model="selectType">
-					<option value="color">color</option>
-					<option value="size">size</option>
-					<option value="weight">weight</option>
-				</select>
-			</label>
+        <select v-model="selectType">
+          <option value="color">color</option>
+          <option value="size">size</option>
+          <option value="weight">weight</option>
+        </select>
+      </label>
 
-       <!-- кнопка не активна, если не выбран select-->
+      <!-- кнопка не активна, если не выбран select-->
       <button @click="addAttr" :disabled="selectType === ''">
         Add
       </button>
-		</div>
-	</div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -82,10 +82,10 @@ const addAttr = () => {
 
 <style scoped lang="css">
 .content {
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
-	gap: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
 }
 
 .content__header {
@@ -93,10 +93,10 @@ const addAttr = () => {
 }
 
 .content__detail {
-	padding: 10px;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .content__add {
@@ -105,8 +105,8 @@ const addAttr = () => {
 }
 
 .field {
-	display: flex;
-	gap: 5px;
+  display: flex;
+  gap: 5px;
 }
 
 fieldset.field {
@@ -117,7 +117,7 @@ fieldset.field {
 }
 
 .field__title {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 legend.field__title {

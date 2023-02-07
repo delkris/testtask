@@ -15,14 +15,14 @@ export interface Color extends ProductAttr {
     color: string;
 }
 
-export interface Size extends ProductAttr  {
+export interface Size extends ProductAttr {
     size: {
         width: number;
         height: number;
     }
 }
 
-export interface Weight extends ProductAttr  {
+export interface Weight extends ProductAttr {
     weight: number
 }
 

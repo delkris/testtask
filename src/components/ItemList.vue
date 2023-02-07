@@ -1,10 +1,11 @@
 <template>
-	<div class="list">
+  <div class="list">
     <!--  в качестве key лучше подходит item.id и сравнивать лучше по id-->
-		<button v-for="item in items" :key="item.id" class="list__item" :class="{ 'list__item_selected': item.id === selectedItem}" @click="onClick(item)">
-			{{ item.name }}
-		</button>
-	</div>
+    <button v-for="item in items" :key="item.id" class="list__item"
+            :class="{ 'list__item_selected': item.id === selectedId}" @click="onClick(item)">
+      {{ item.name }}
+    </button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -19,37 +20,37 @@ defineProps({
   },
 });
 
-const selectedItem: Ref<number | undefined> = ref(undefined);
+const selectedId: Ref<number | undefined> = ref(undefined);
 
 const onClick = (item: Product) => {
-	selectedItem.value = item.id;
-	emit('click', item);
+  selectedId.value = item.id;
+  emit('click', item);
 }
 </script>
 
-<style lang="css">
+<style scoped lang="css">
 .list {
-	display: flex;
-	flex-direction: column;
-	border: 1px solid lightblue;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid lightblue;
 }
 
 .list__item {
-	padding: 10px;
-	cursor: pointer;
-	font-size: 20px;
-	font-weight: bold;
-	min-width: 250px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  min-width: 250px;
   background-color: transparent;
   border: none;
   text-align: left;
 }
 
 .list__item_selected {
-	background-color: lightskyblue;
+  background-color: lightskyblue;
 }
 
 .list__item:hover {
-	background-color: #f0f0ff;
+  background-color: #f0f0ff;
 }
 </style>

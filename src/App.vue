@@ -1,17 +1,17 @@
 <template>
-	<main class="main">
+  <main class="main">
     <div class="main__sidebar">
-      <item-list :items="data" class="main__sidebar" @click="selectedItem = $event" />
+      <item-list :items="data" @click="selectedItem = $event"/>
     </div>
 
     <div class="main__content">
-      <item-content class="main__content" v-if="selectedItem" :item="selectedItem" @addAttr="addAttr"/>
+      <item-content v-if="selectedItem" :item="selectedItem" @addAttr="addAttr"/>
     </div>
-	</main>
+  </main>
 </template>
 
 <script setup lang="ts">
-import { ref, Ref} from "vue";
+import {ref, Ref} from "vue";
 import ItemList from './components/ItemList.vue';
 import ItemContent from './components/ItemContent.vue';
 import Data from './components/mockData';
@@ -19,7 +19,7 @@ import Data from './components/mockData';
 import {Product} from "@/components/types";
 
 const data: Ref<Product[]> = ref(Data);
-const selectedItem: Ref<Product | undefined>= ref();
+const selectedItem: Ref<Product | undefined> = ref();
 
 const addAttr = (value: string) => {
   const element = data.value.find(el => el.id === selectedItem.value?.id)
@@ -67,12 +67,14 @@ const addAttr = (value: string) => {
 
 <style scoped lang="css">
 .main {
-	display: flex;
-	gap: 20px;
+  display: flex;
+  gap: 20px;
 }
+
 .main__sidebar {
-	width: auto;
+  width: auto;
 }
+
 .main__content {
   flex: 1;
 }
