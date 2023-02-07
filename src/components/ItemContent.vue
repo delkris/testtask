@@ -1,39 +1,46 @@
 <template>
 	<div class="content">
-		<span class="header"> {{ item.name }}</span>
+		<span class="content__header"> {{ item.name }}</span>
 
     <!-- в input использовала v-model, ибо не работало редактирование -->
-		<div class="detail" v-for="attr in item.attributes" :key="attr.id">
-			<div class="field">
-				<span class="title">code:</span>
+		<div class="content__detail" v-for="attr in item.attributes" :key="attr.id">
+			<label class="field">
+				<span class="field__title">code:</span>
 				<input v-model="attr.code"/>
-			</div>
+			</label>
 
-			<div class="field">
-				<span class="title">name:</span>
-				<input v-model="attr.name"/>
-			</div>
+			<label class="field">
+				<span class="field__title">name:</span>
+				<input  v-model="attr.name"/>
+			</label>
 
-			<div v-if="attr.color" class="field">
-				<span class="title">color:</span>
+			<label v-if="attr.color" class="field">
+        <span class="field__title">color:</span>
 				<input v-model="attr.color"/>
-			</div>
+			</label>
 
-			<div v-if="attr.size" class="field">
-				<span class="title">size:</span>
-				<span>
-					<input v-model="attr.size.width" type="number"/> x <input v-model="attr.size.height" type="number"/>
-				</span>
+      <div v-if="attr.size" class="field">
+        <span class="field__title">size:</span>
+        <div>
+          <label>
+            <span class="field__title field__title_hidden">width:</span>
+             <input v-model="attr.size.width" type="number"/>
+          </label>
+           x
+          <label>
+            <span class="field__title field__title_hidden">height:</span>
+            <input v-model="attr.size.height" type="number"/>
+          </label>
+        </div>
+      </div>
 
-			</div>
-
-			<div v-if="attr.weight" class="field">
-				<span class="title">weight:</span>
+			<label v-if="attr.weight" class="field">
+				<span class="field__title">weight:</span>
 				<input v-model="attr.weight" type="number"/>
-			</div>
+			</label>
 		</div>
 
-		<div class="add">
+		<div class="content__add">
 			<label>
 				type
         <!--   предпочтительно использовать v-model вместо ref -->
@@ -74,30 +81,57 @@ const addAttr = () => {
 </script>
 
 <style scoped lang="css">
-.header {
-	font-weight: bold;
-}
 .content {
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
 	gap: 20px;
 }
-.detail {
+
+.content__header {
+  font-weight: bold;
+}
+
+.content__detail {
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 }
+
+.content__add {
+  display: flex;
+  gap: 10px;
+}
+
 .field {
 	display: flex;
 	gap: 5px;
 }
-.title {
+
+fieldset.field {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.field__title {
 	font-weight: bold;
 }
-.add {
-	display: flex;
-	gap: 10px;
+
+legend.field__title {
+  padding: 0;
+}
+
+.field__title_hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 </style>

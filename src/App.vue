@@ -1,8 +1,13 @@
 <template>
-	<div class="main">
-		<item-list :items="data" class="sidebar" @click="selectedItem = $event" />
-		<item-content v-if="selectedItem" :item="selectedItem" @addAttr="addAttr"/>
-	</div>
+	<main class="main">
+    <div class="main__sidebar">
+      <item-list :items="data" class="main__sidebar" @click="selectedItem = $event" />
+    </div>
+
+    <div class="main__content">
+      <item-content class="main__content" v-if="selectedItem" :item="selectedItem" @addAttr="addAttr"/>
+    </div>
+	</main>
 </template>
 
 <script setup lang="ts">
@@ -65,7 +70,10 @@ const addAttr = (value: string) => {
 	display: flex;
 	gap: 20px;
 }
-.sidebar {
+.main__sidebar {
 	width: auto;
+}
+.main__content {
+  flex: 1;
 }
 </style>
