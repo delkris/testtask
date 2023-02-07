@@ -1,29 +1,27 @@
 <template>
 	<div class="list">
-		<span v-for="(item, i) in items" :key="i" class="item" :class="{ itemSelected: item === selectedItem}" @click="() => onClick(item)">
+		<span v-for="item in items" :key="item.id" class="item" :class="{ itemSelected: item.id === selectedItem}" @click="onClick(item)">
 			{{ item.name }}
 		</span>
 	</div>
-
 </template>
 
 <script setup lang="ts">
-import {defineProps, defineEmits, ref} from 'vue';
-
-
-defineProps<{
-	items: {
-		id: string;
-		name: string;
-	}[];
-}>();
+import {defineProps, defineEmits, ref, PropType, Ref} from 'vue';
+import {Product} from "@/components/types";
 
 const emit = defineEmits(['click']);
 
-const selectedItem = ref();
+defineProps({
+  items: {
+    type: Array as PropType<Product[]>,
+  },
+});
 
-const onClick = (item: any) => {
-	selectedItem.value = item;
+const selectedItem: Ref<number | undefined> = ref(undefined);
+
+const onClick = (item: Product) => {
+	selectedItem.value = item.id;
 	emit('click', item);
 }
 </script>
